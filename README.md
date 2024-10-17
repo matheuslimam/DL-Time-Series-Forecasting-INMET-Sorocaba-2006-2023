@@ -140,7 +140,8 @@ DL-Time-Series-Forecasting-INMET-Sorocaba-2006-2023/
 ├── requirements.txt         # List of dependencies
 └── LICENSE                  # License for the project
 ```
-##🔮 Future Work
+
+## 🔮 Future Work
 
 1. Explore more advanced architectures: Experiment with hybrid models combining LSTM, GRU, and CNNs for better accuracy.
 2. Ensemble Methods: Test ensemble learning techniques to improve model robustness.
