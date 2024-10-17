@@ -5,9 +5,9 @@
 ---
 
 ## 📑 Table of Contents
-- [Introduction](-#introduction)
-- [Dataset](-#dataset)
-- [Problem Statement](#problem-statement)
+- [Introduction](#-introduction)
+- [Dataset](#-dataset)
+- [Problem Statement](#-problem-statement)
 - [Models Used](#models-used)
 - [Methodology](#methodology)
 - [Results](#results)
