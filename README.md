@@ -16,6 +16,7 @@
 - [Project Structure](#-project-structure)
 - [Future Work](#-future-work)
 - [Contributing](#-contributing)
+- [Authors](#-authors)
 - [License](#-license)
 
 ---
@@ -147,6 +148,16 @@ DL-Time-Series-Forecasting-INMET-Sorocaba-2006-2023/
 2. Ensemble Methods: Test ensemble learning techniques to improve model robustness.
 3. Feature Engineering: Integrate more meteorological variables to enhance prediction accuracy.
 4. Real-time Prediction: Implement a real-time weather forecasting system for more practical applications.
+
+## 👨‍💻 Authors
+- Enzo Marcondes de Andrade Pereira Esteban
+- Felipe Zanardo Goldoni
+- Levi De Souza Correia
+- Leopoldo André Dutra Lusquino Filho
+- Matheus Lima Maturano Martins de Castro
+- Natan Da Silva Guedes
+- William Dantas Vichete
+
 
 ## 📝 License
 
