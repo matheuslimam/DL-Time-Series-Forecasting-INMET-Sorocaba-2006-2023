@@ -127,21 +127,12 @@ A weighted loss function penalized errors more heavily for extreme precipitation
 
 ### Train Models
 Train LSTM and GRU models using scripts in the `Modelos/` directory:
-```bash
-python Modelos/train_lstm.py
-```
 
 ### Evaluate Models
 Evaluate pre-trained models stored in `Pesos/`:
-```bash
-python evaluate_model.py --model_path Pesos/lstm_model.h5
-```
 
 ### Visualize Results
 Generate performance visualizations:
-```bash
-python Graficos/generate_plots.py
-```
 
 ---
 
