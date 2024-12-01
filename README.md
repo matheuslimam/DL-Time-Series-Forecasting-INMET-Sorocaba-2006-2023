@@ -149,7 +149,7 @@ python Graficos/generate_plots.py
 
 ```bash
 DL-Time-Series-Forecasting-INMET-Sorocaba-2006-2023/
-├── data/                  # Meteorological dataset files
+├── Dataset/               # Meteorological dataset files
 ├── Graficos/              # Scripts and output for visualizations
 ├── Modelos/               # Model training and evaluation scripts
 ├── Pesos/                 # Pre-trained model weights
