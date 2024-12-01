@@ -1,6 +1,7 @@
+
 # DL-Time-Series-Forecasting-INMET-Sorocaba-2006-2023
 
-**Deep Learning Time Series Forecasting with Mixed Frequencies: Case Study Using INMET Dataset for Sorocaba (2006-2023)**
+**Forecasting Extreme Meteorological Events Using Deep Learning: A Case Study on INMET Sorocaba Dataset (2006–2023)**
 
 ---
 
@@ -15,7 +16,6 @@
 - [Usage](#-usage)
 - [Project Structure](#-project-structure)
 - [Future Work](#-future-work)
-- [Contributing](#-contributing)
 - [Authors](#-authors)
 - [License](#-license)
 
@@ -23,133 +23,162 @@
 
 ## 📘 Introduction
 
-This project leverages **deep learning** models to forecast meteorological time series data with **mixed frequencies** from the **INMET Sorocaba** dataset spanning from **2006 to 2023**. The primary goal is to predict intense rainfall events and other key meteorological variables using advanced recurrent neural networks, specifically **LSTM** and **GRU** models.
+This project explores advanced **deep learning techniques** to forecast extreme meteorological events using the **INMET dataset** for Sorocaba (2006–2023). It focuses on predicting intense rainfall and other critical weather phenomena using state-of-the-art models like **LSTM**, **GRU**, and **transformers**. The study contributes to disaster management, climate resilience, and urban planning.
 
 ---
 
 ## 🌐 Dataset
 
-The dataset used in this project was obtained from the **INMET (Instituto Nacional de Meteorologia)** and contains hourly meteorological data from **Sorocaba**, a city in Brazil. The dataset includes the following key variables:
+The dataset includes hourly meteorological data collected by INMET for Sorocaba, with the following key variables:
 - **Precipitation** (mm)
 - **Atmospheric Pressure** (mB)
-- **Maximum and Minimum Temperature** (°C)
+- **Temperature** (°C)
 - **Relative Humidity** (%)
 
-Data from **2006 to 2023** was pre-processed to handle missing values and normalize the variables for deep learning model training.
+Comprehensive preprocessing ensured that:
+- Temporal alignment was standardized across years.
+- Missing data and outliers were handled using robust statistical techniques.
+- Time series windows were created to optimize for deep learning architectures.
 
 ---
 
 ## 🎯 Problem Statement
 
-The objective is to accurately **forecast meteorological events**, particularly **intense rainfall**, which is crucial for disaster management, urban planning, and public safety in regions prone to extreme weather events, such as Sorocaba.
-
-Key challenges include:
-- Handling **mixed frequency** data.
-- Dealing with temporal lags between variables like humidity, pressure, and rainfall.
-- Developing models that generalize well on unseen data.
+Accurate forecasting of **rare extreme precipitation events** is critical for disaster mitigation and infrastructure planning. Challenges include:
+1. **Data Imbalance**: Extreme events are underrepresented in meteorological datasets.
+2. **Non-linear Dependencies**: Relationships between meteorological variables are complex and multi-scale.
+3. **Temporal Misalignment**: Sensor anomalies and data inconsistencies affect prediction accuracy.
 
 ---
 
 ## 🧠 Models Used
 
-Two **Recurrent Neural Network (RNN)** architectures were employed for time series forecasting:
-- **Long Short-Term Memory (LSTM)**
-- **Gated Recurrent Unit (GRU)**
-
-These models were chosen due to their ability to capture long-term dependencies in time series data, which is essential for predicting weather patterns.
+The project employs a variety of architectures:
+1. **Recurrent Neural Networks (RNNs)**:
+   - Long Short-Term Memory (LSTM)
+   - Gated Recurrent Unit (GRU)
+2. **Attention-Based Transformers**: For capturing global and local dependencies.
+3. **Stacking Ensemble**: Combines GRU, LSTM for optimal performance.
 
 ---
 
 ## 🛠️ Methodology
 
-1. **Data Preprocessing**:
-   - **Normalization**: The data was normalized between 0 and 1 to enhance model convergence.
-   - **Handling Missing Data**: Rows with missing values were dropped to ensure model accuracy.
-   - **Sequence Generation**: The dataset was split into sequences of 24-hour intervals to predict the next hour.
+### 1. Preprocessing
+- Temporal alignment and concatenation of yearly datasets.
+- Removal of extreme outliers (e.g., erroneous sensor readings).
+- Creation of sliding windows to capture sequential patterns.
 
-2. **Model Training**:
-   - The dataset was split into **80% training** and **20% testing** sets.
-   - Both LSTM and GRU models were trained using **50 epochs**, with a batch size of **32**, and the **Adam optimizer**.
+### 2. Custom Loss Function
+A weighted loss function penalized errors more heavily for extreme precipitation events, ensuring model sensitivity to rare events.
 
-3. **Evaluation Metrics**:
-   - **Mean Squared Error (MSE)**
-   - **Root Mean Squared Error (RMSE)**
-   - **Mean Absolute Error (MAE)**
-   - **Coefficient of Determination (R²)**
+### 3. Evaluation Metrics
+- **MSE**: Measures overall prediction error.
+- **DTW (Dynamic Time Warping)**: Assesses temporal alignment between predicted and observed data.
+- **Reanalysis Matrix**: Evaluates hits, misses, and false alarms for extreme event predictions.
 
 ---
 
 ## 📊 Results
 
-The models were evaluated using the test set. The performance of the **LSTM**, **GRU**, and **SARIMA** models are summarized below:
+**Model Performance Summary**:
 
-| Model   | MSE      | RMSE    | MAE     | R²      |
-|---------|----------|---------|---------|---------|
-| LSTM    | 0.0075   | 0.0866  | 0.0300  | 0.0278  |
-| GRU     | 0.0075   | 0.0866  | 0.0343  | 0.0267  |
-| SARIMA  | 0.0109   | 0.1044  | 0.0490  | -0.4136 |
+| Model                 | MSE    | RMSE   | MAE    | DTW    |
+|-----------------------|--------|--------|--------|--------|
+| GRU                  | 0.0003 | 0.0179 | 0.0036 | 85.639 |
+| LSTM                 | 0.0003 | 0.0180 | 0.0033 | 82.425 |
+| Bidirectional GRU    | 0.0003 | 0.0179 | 0.0032 | 76.726 |
+| Bidirectional LSTM   | 0.0003 | 0.0179 | 0.0032 | 70.472 |
+| Transformer          | 0.0004 | 0.0203 | 0.0073 | 183.667 |
+| **Stacking (Proposed)** | **0.0003** | **0.0199** | **0.0022** | **32.157** |
 
-**Key Findings**:
-- Both **LSTM** and **GRU** outperformed the traditional **SARIMA** model, especially in terms of RMSE and MSE.
-- **LSTM** showed a slight edge in accuracy, while **GRU** was more computationally efficient.
+![Stacking Model Results](image.png)
+
+### Key Observations:
+- The **stacking model** outperformed standalone architectures by integrating their strengths.
+- Transformer-based models excelled in capturing long-term dependencies but were computationally expensive.
+- Custom loss functions significantly improved sensitivity to extreme events.
 
 ---
 
 ## 🛠️ Installation
 
 ### Prerequisites
-Ensure you have the following installed:
-- **Python 3.8+**
-- **Jupyter Notebook** (optional but recommended)
-- **TensorFlow** (for deep learning models)
-- **Keras**
-- **Pandas**
-- **NumPy**
-- **Matplotlib** (for visualization)
+- Python 3.8+
+- TensorFlow, Keras, Pandas, NumPy
 
-### Setup
+### Steps
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/DL-Time-Series-Forecasting-INMET-Sorocaba-2006-2023.git
-   cd DL-Time-Series-Forecasting-INMET-Sorocaba-2006-2023
-   
-2. Install the required dependencies:
+   git clone https://github.com/your-username/DL-Time-Series-Forecasting-INMET-Sorocaba.git
+   cd DL-Time-Series-Forecasting-INMET-Sorocaba
+   ```
+2. Set up a virtual environment and install dependencies:
    ```bash
+   python -m venv venv
+   source venv/bin/activate   # For Windows: venv\Scripts\activate
    pip install -r requirements.txt
+   ```
+3. Place the dataset in the `data/` folder.
 
-3. Run the Jupyter Notebook:
-    ```bash
-    jupyter notebook
+---
 
 ## 🚀 Usage
 
-### Training the Models
-### Visualizing Results
-### Running Predictions
+### Train Models
+Train LSTM and GRU models using scripts in the `Modelos/` directory:
+```bash
+python Modelos/train_lstm.py
+```
+
+### Evaluate Models
+Evaluate pre-trained models stored in `Pesos/`:
+```bash
+python evaluate_model.py --model_path Pesos/lstm_model.h5
+```
+
+### Visualize Results
+Generate performance visualizations:
+```bash
+python Graficos/generate_plots.py
+```
+
+---
 
 ## 📂 Project Structure
 
- ```bash
+```bash
 DL-Time-Series-Forecasting-INMET-Sorocaba-2006-2023/
-│
-├── data/                   # Directory containing the dataset
-├── notebooks/               # Jupyter notebooks for training, evaluation, and prediction
-├── models/                  # Saved models (LSTM, GRU)
-├── src/                     # Source code for model architecture and data processing
-├── results/                 # Results and evaluation metrics
-├── README.md                # Project documentation
-├── requirements.txt         # List of dependencies
-└── LICENSE                  # License for the project
+├── data/                  # Meteorological dataset files
+├── Graficos/              # Scripts and output for visualizations
+├── Modelos/               # Model training and evaluation scripts
+├── Pesos/                 # Pre-trained model weights
+├── Tabela/                # Tables summarizing results
+├── Topologias/            # Model configurations and architectures
+├── requirements.txt       # Dependencies
+└── README.md              # Project documentation
 ```
+
+---
 
 ## 🔮 Future Work
 
-1. Explore more advanced architectures: Experiment with hybrid models combining LSTM, GRU, and CNNs for better accuracy.
-2. Ensemble Methods: Test ensemble learning techniques to improve model robustness.
-3. Feature Engineering: Integrate more meteorological variables to enhance prediction accuracy.
-4. Real-time Prediction: Implement a real-time weather forecasting system for more practical applications.
+### 1. Advanced Architectures
+- Explore **hybrid models** combining deep learning with physics-based approaches to improve generalization across diverse meteorological conditions.
+- Integrate **graph neural networks (GNNs)** to model spatial dependencies between meteorological stations.
+
+### 2. Real-Time Prediction
+- Implement a **real-time weather forecasting system** with adaptive learning to handle streaming data.
+- Incorporate **edge AI solutions** for deployment on low-power devices in remote locations.
+
+### 3. Collaboration and Open Science
+- Share the trained models and datasets via an **open repository** to encourage reproducibility and collaboration.
+- Develop an API for seamless integration with operational meteorological services.
+
+---
 
 ## 👨‍💻 Authors
+
 - Enzo Marcondes de Andrade Pereira Esteban
 - Felipe Zanardo Goldoni
 - Levi De Souza Correia
@@ -158,9 +187,9 @@ DL-Time-Series-Forecasting-INMET-Sorocaba-2006-2023/
 - Natan Da Silva Guedes
 - William Dantas Vichete
 
+---
 
 ## 📝 License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
-
 
