@@ -92,7 +92,7 @@ A weighted loss function penalized errors more heavily for extreme precipitation
 | Transformer          | 0.0004 | 0.0203 | 0.0073 | 183.667 |
 | **Stacking (Proposed)** | **0.0003** | **0.0199** | **0.0022** | **32.157** |
 
-![Stacking Model Results](image.png)
+![Stacking Model Results](Graficos/stackingwithloss2.png
 
 ### Key Observations:
 - The **stacking model** outperformed standalone architectures by integrating their strengths.
